@@ -1,10 +1,9 @@
-# React的特点
-- 组件式开发
-    > 在构建网站的时候，将网站的每一部分考虑为一个组件
-    - 复用
-    - 更新
-    - 组合
-- 虚拟DOM
-- JSX
-- 单项数据流
-    > Control(操作) 修改 => Model(数据) 更改 => View(界面)
+# React的开发、调试环境
+1. cnpm/npm install create-react-app -g
+> npm安装react构建工具的全局
+2. create-react-app demo
+> 在命令行的运行目录构建工具构建一个demo的开发环境
+3. cd demo && npm start
+> 进入这个文件夹，并且用npm命令运行
+4. localhost:3000
+> chromel代开ui运行
