@@ -1,124 +1,68 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import "./index.css";
 
-function ProductCategoryRow({ category }) {
+function Clock({ color, time }) {
+  return <h1 style={{ color: color }}>{time}</h1>;
+}
+
+function ChooseColor(props) {
   return (
-    <tr>
-      <th colSpan="2">{category}</th>
-    </tr>
+    <select
+      onChange={(e) => {
+        props.onInStockOnlyChange(e.target.value);
+      }}
+    >
+      {props.colorList.map((item) => (
+        <option key={item.color} value={item.color}>
+          {item.value}
+        </option>
+      ))}
+    </select>
   );
 }
 
-function ProductRow({ product }) {
-  const name = product.stocked ? (
-    product.name
-  ) : (
-    <span style={{ color: "red" }}>{product.name}</span>
-  );
+function getTime() {
+  const date = new Date();
+  let h = date.getHours();
+  let m = date.getMinutes();
+  let s = date.getSeconds();
+  h = h > 10 ? h : `0${h}`;
+  m = m > 10 ? m : `0${m}`;
+  s = s > 10 ? s : `0${s}`;
+  return `${h}:${m}:${s}`;
+}
 
+function App() {
+  const [color, setColor] = useState("lightcoral");
+  const [time, setTime] = useState(getTime());
+  const colorList = [
+    {
+      value: "浅珊瑚色",
+      color: "lightcoral",
+    },
+    {
+      value: "午夜蓝",
+      color: "midnightblue",
+    },
+    {
+      value: "丽贝卡紫",
+      color: "rebeccapurple",
+    },
+  ];
+  setInterval(() => {
+    setTime(getTime())
+  }, 1000)
   return (
-    <tr>
-      <td>{name}</td>
-      <td>{product.price}</td>
-    </tr>
+    <>
+      <div>
+        <span>请选择一个颜色：</span>
+        <ChooseColor colorList={colorList} onInStockOnlyChange={setColor} />
+      </div>
+      <Clock color={color} time={time} />
+    </>
   );
 }
 
-function ProductTable({ products, filterText, inStockOnly }) {
-  const rows = [];
-  let lastCategory = null;
-
-  products.forEach((product) => {
-    if (product.name.toLowerCase().indexOf(filterText.toLowerCase()) === -1) {
-      return;
-    }
-    if (inStockOnly && !product.stocked) {
-      return;
-    }
-    if (product.category !== lastCategory) {
-      rows.push(
-        <ProductCategoryRow
-          category={product.category}
-          key={product.category}
-        />
-      );
-    }
-    rows.push(<ProductRow product={product} key={product.name} />);
-    lastCategory = product.category;
-  });
-
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
-  );
-}
-
-function SearchBar({
-  filterText,
-  inStockOnly,
-  onFilterTextChange,
-  onInStockOnlyChange,
-}) {
-  return (
-    <form>
-      <input
-        type="text"
-        value={filterText}
-        onChange={(e) => onFilterTextChange(e.target.value)}
-        placeholder="Search..."
-      />
-      <label>
-        <input
-          type="checkbox"
-          checked={inStockOnly}
-          onChange={(e) => onInStockOnlyChange(e.target.checked)}
-        />{" "}
-        Only show products in stock
-      </label>
-    </form>
-  );
-}
-
-function FilterableProductTable({ products }) {
-  const [filterText, setFilterText] = useState("");
-  const [inStockOnly, setInStockOnly] = useState(false);
-  return (
-    <div>
-      <SearchBar
-        filterText={filterText}
-        inStockOnly={inStockOnly}
-        onFilterTextChange={setFilterText}
-        onInStockOnlyChange={setInStockOnly}
-      />
-      <ProductTable
-        products={products}
-        filterText={filterText}
-        inStockOnly={inStockOnly}
-      />
-    </div>
-  );
-}
-
-const PRODUCTS = [
-  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
-  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
-  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
-  { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
-  { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
-  { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
-];
-
-export default function App() {
-  return <FilterableProductTable products={PRODUCTS} />;
-}
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById("root"));
 root.render(<App />);

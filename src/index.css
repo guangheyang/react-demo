@@ -1,86 +1,9 @@
 body {
-    font: 14px "Century Gothic", Futura, sans-serif;
-    margin: 20px;
-  }
-  
-  ol, ul {
-    padding-left: 30px;
-  }
-  
-  .board-row:after {
-    clear: both;
-    content: "";
-    display: table;
-  }
-  
-  .status {
-    margin-bottom: 10px;
-  }
-  
-  .square {
-    background: #fff;
-    border: 1px solid #999;
-    float: left;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 34px;
-    height: 34px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 34px;
-  }
-  
-  .square:focus {
-    outline: none;
-  }
-  
-  .kbd-navigation .square:focus {
-    background: #ddd;
-  }
-  
-  .game {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .game-info {
-    margin-left: 20px;
-  }
-  
-  li button {
-    padding: 5px;
-    margin: 5px;
-  }
-  .weight button {
-    font-size: 18px;
-  }
-  .order {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 120px;
-  }
-
-  .order div {
-    margin: 10px 0 0;
-    width: 50px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    font-size: 18px;
+  font: 14px "Century Gothic", Futura, sans-serif;
+  margin: 20px;
 }
 
-.order div.desc,
-.order div.arc {
-  background-color: cornflowerblue;
-  color: #fff;
-}
-
-.highlight  {
-  background-color: green;
-  color: white;
+img {
+  width: 100px;
+  height: 100px;
 }
