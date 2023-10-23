@@ -27,9 +27,9 @@ function getTime() {
   let h = date.getHours();
   let m = date.getMinutes();
   let s = date.getSeconds();
-  h = h > 10 ? h : `0${h}`;
-  m = m > 10 ? m : `0${m}`;
-  s = s > 10 ? s : `0${s}`;
+  h = h >= 10 ? h : `0${h}`;
+  m = m >= 10 ? m : `0${m}`;
+  s = s >= 10 ? s : `0${s}`;
   return `${h}:${m}:${s}`;
 }
 
